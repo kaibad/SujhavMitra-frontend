@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { assets } from "../assets/assets";
+import "../index.css";
 // import { useAuth } from "../context/useAuth";
 
 const navItems = [
@@ -24,29 +25,30 @@ const Header = () => {
 
   return (
     <header className="bg-white shadow-md py-4">
-      <div className="container mx-auto flex justify-between items-center px-4">
-        {/* Logo */}
-        <Link to="/">
-          <img src={assets.logo} alt="logo" className="h-8" />
-        </Link>
+      <div className="wrapper">
+        <div className=" mx-auto flex justify-between items-center px-4">
+          {/* Logo */}
+          <Link to="/">
+            <img src={assets.logo} alt="logo" className="h-8" />
+          </Link>
 
-        {/* Navigation */}
-        <div className="hidden sm:flex gap-8">
-          {dynamicNav.map((item) => (
-            <Link
-              key={item.name}
-              to={item.path}
-              className={`hover:text-cyan-600 text-black ${
-                pathname === item.path ? "font-bold" : ""
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
+          {/* Navigation */}
+          <div className="hidden sm:flex gap-8">
+            {dynamicNav.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className={`hover:text-cyan-600 text-black ${
+                  pathname === item.path ? "font-bold" : ""
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </div>
 
-        {/* Auth Section */}
-        {/* <div className="flex gap-4 items-center">
+          {/* Auth Section */}
+          {/* <div className="flex gap-4 items-center">
           {user ? (
             <>
               <span className="text-gray-700 text-sm">Hi, {user.name}</span>
@@ -74,6 +76,7 @@ const Header = () => {
             </>
           )}
         </div> */}
+        </div>
       </div>
     </header>
   );

@@ -1,1 +1,43 @@
 @import "tailwindcss";
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+.wrapper {
+  max-width: 1280px;
+  padding: 0 15px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 50px;
+}
+.section-header h4 {
+  font-family: "Playfair Display", serif;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 600;
+}
+.section-header h2 {
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  line-height: 38px;
+  font-weight: 700;
+  margin: 15px 0;
+}
+.section-header p {
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  line-height: 28px;
+  font-weight: 400;
+}
+
+/* =============== Reccomendation Card =================== */
+.recommendationcard-content {
+  padding: 25px 10px;
+  border-radius: 10px;
+}
+
+.recommendationcard-content h4 {
+  font-style: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
