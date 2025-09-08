@@ -1,14 +1,25 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import BookSlider from "../components/BookSlider";
 import RecommendationCard from "../components/RecommendationCard";
-import api from "../services/api";
 import Loading from "../components/Loading";
+import { fetchPopularBooks, fetchBookRecommendations } from "../services/api";
 import "../index.css";
 
 export default function Books() {
+  const [popularBooks, setPopularBooks] = useState([]);
   const [query, setQuery] = useState("");
   const [recommendations, setRecommendations] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  // Fetch popular books once
+  useEffect(() => {
+    const loadPopularBooks = async () => {
+      const books = await fetchPopularBooks();
+      setPopularBooks(books);
+    };
+    loadPopularBooks();
+  }, []);
 
   const clearResults = useCallback(() => {
     setQuery("");
@@ -31,21 +42,16 @@ export default function Books() {
       setLoading(true);
 
       try {
-        // Call the centralized api (axios client)
-        const res = await api.fetchBookRecommendations(trimmedQuery);
+        const recs = await fetchBookRecommendations(trimmedQuery);
 
-        // Handle error responses
-        if (res && res.error) {
-          setError(res.error);
+        if (recs.error) {
+          setError(recs.error);
           setRecommendations([]);
           return;
         }
 
-        // Extract recommendations
-        const recs = res?.recommendations || (Array.isArray(res) ? res : []);
         setRecommendations(recs);
 
-        // Show success message if no recommendations found
         if (recs.length === 0) {
           setError(
             "No recommendations found for this title. Try a different search term."
@@ -65,7 +71,6 @@ export default function Books() {
   const handleInputChange = useCallback(
     (e) => {
       setQuery(e.target.value);
-      // Clear error when user starts typing
       if (error) setError(null);
     },
     [error]
@@ -82,12 +87,14 @@ export default function Books() {
 
   return (
     <div className="Bookpage">
+      <BookSlider books={popularBooks.slice(0, 15)} />
+
       <div className="wrapper">
         <div className="p-6 max-w-5xl mx-auto">
-          <h1 className=" text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-gray-900">
             Search Book Recommendations
           </h1>
-          <p className="text-sm mb-6  text-gray-600 mt-2">
+          <p className="text-sm mb-6 text-gray-600 mt-2">
             Type a book title and click Search to get recommended books from the
             backend.
           </p>
@@ -119,7 +126,6 @@ export default function Books() {
             </button>
           </div>
 
-          {/* Error Display */}
           {error && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg">
               <div className="text-red-800 font-medium">Error</div>
@@ -127,10 +133,8 @@ export default function Books() {
             </div>
           )}
 
-          {/* Loading State */}
           {loading && <Loading />}
 
-          {/* Recommendations Grid */}
           <section className="mb-8">
             {recommendations && recommendations.length > 0 && (
               <>
@@ -152,19 +156,6 @@ export default function Books() {
 
             {!loading && recommendations.length === 0 && !error && (
               <div className="text-center py-12">
-                <svg
-                  className="mx-auto h-12 w-12 text-gray-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
-                  />
-                </svg>
                 <h3 className="mt-2 text-sm font-medium text-gray-900">
                   No recommendations yet
                 </h3>

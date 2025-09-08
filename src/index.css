@@ -1,5 +1,17 @@
 @import "tailwindcss";
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: "Fugaz One", sans-serif;
+}
+a,
+p,
+li {
+  font-family: "Work Sans", sans-serif;
+}
 
 .wrapper {
   max-width: 1280px;
@@ -11,20 +23,15 @@
   margin-bottom: 50px;
 }
 .section-header h4 {
-  font-family: "Playfair Display", serif;
   font-size: 20px;
   line-height: 30px;
-  font-weight: 600;
 }
 .section-header h2 {
-  font-family: "Playfair Display", serif;
   font-size: 28px;
   line-height: 38px;
-  font-weight: 700;
   margin: 15px 0;
 }
 .section-header p {
-  font-family: "Roboto", sans-serif;
   font-size: 18px;
   line-height: 28px;
   font-weight: 400;
