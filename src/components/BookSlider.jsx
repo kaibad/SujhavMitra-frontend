@@ -3,13 +3,13 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export default function BookSlider({ books }) {
-  if (!books || books.length === 0) return null;
+  if (!Array.isArray(books) || books.length === 0) return null;
 
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: Math.min(3, books.length),
+    slidesToShow: Math.min(5, books.length),
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
@@ -21,14 +21,14 @@ export default function BookSlider({ books }) {
   };
 
   return (
-    <div className="mb-5">
+    <div>
       <Slider {...settings}>
         {books.map((book, index) => (
-          <div key={index} className="">
+          <div key={book.isbn || index} className="slider">
             <img
               src={book.imageurl}
               alt={book.title}
-              className="w-full h-64 object-cover rounded-lg shadow-md"
+              className="w-full h-70 object-cover rounded-lg shadow-md"
             />
             <h3>{book.title}</h3>
           </div>

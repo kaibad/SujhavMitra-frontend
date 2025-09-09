@@ -30,13 +30,14 @@ li {
   padding: 0 15px;
   margin: 0 auto;
 }
-
+/* =============== Section Heading =================== */
 .section-header {
   margin-bottom: 50px;
 }
 .section-header h4 {
   font-size: 20px;
   line-height: 30px;
+  color: #4f46e5;
 }
 .section-header h2 {
   font-size: 28px;
@@ -59,4 +60,32 @@ li {
   font-style: 20px;
   font-weight: 700;
   margin-bottom: 10px;
+}
+
+/* =============== Slider =================== */
+.slider {
+  position: relative;
+  max-height: 420px;
+}
+.slider img {
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.slider h3 {
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 50px);
+  transform: translate(-50%, -50%);
+  transition: all linear 0.5s;
+  width: 100%;
+  text-align: center;
+  height: auto;
+  padding: 15px;
+  background-color: #fff;
+}
+
+.slider:hover h3 {
+  top: 100%;
 }

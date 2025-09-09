@@ -1,8 +1,10 @@
+// Header.jsx
 import { useEffect, useState, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { assets } from "../assets/assets";
-import { Menu, X } from "lucide-react"; // npm i lucide-react  (or swap for your own svgs)
+import { Menu, X } from "lucide-react";
 import "../index.css";
+import { useAuth } from "../context/useAuth";
 
 const navItems = [
   { name: "Home", path: "/" },
@@ -13,8 +15,19 @@ const navItems = [
 
 const Header = () => {
   const { pathname } = useLocation();
+  const { user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const closeBtnRef = useRef(null);
+
+  // Add conditional nav items
+  const dynamicNav = [...navItems];
+  if (user) {
+    if (user.role_id === 1 || user.role_id === 2) {
+      dynamicNav.push({ name: "Dashboard", path: "/admin" });
+    } else {
+      dynamicNav.push({ name: "Wishlist", path: "/profile" });
+    }
+  }
 
   // close on ESC
   useEffect(() => {
@@ -27,7 +40,6 @@ const Header = () => {
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
     if (menuOpen) {
-      // focus the close button for accessibility
       setTimeout(() => closeBtnRef.current?.focus(), 0);
     }
     return () => {
@@ -46,7 +58,7 @@ const Header = () => {
 
           {/* Desktop Navigation */}
           <nav className="hidden sm:flex gap-8">
-            {navItems.map((item) => (
+            {dynamicNav.map((item) => (
               <Link
                 key={item.name}
                 to={item.path}
@@ -59,6 +71,36 @@ const Header = () => {
             ))}
           </nav>
 
+          {/* Auth Section */}
+          <div className="flex gap-4 items-center">
+            {user ? (
+              <>
+                <span className="text-gray-700 text-sm">Hi, {user.name}</span>
+                <button
+                  onClick={logout}
+                  className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 text-sm"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  to="/login"
+                  className="bg-cyan-500 text-white px-3 py-1 rounded hover:bg-cyan-600 text-sm"
+                >
+                  Login
+                </Link>
+                <Link
+                  to="/signup"
+                  className="border border-cyan-500 text-cyan-500 px-3 py-1 rounded hover:bg-cyan-50 text-sm"
+                >
+                  Signup
+                </Link>
+              </>
+            )}
+          </div>
+
           {/* Mobile Hamburger */}
           <button
             aria-label="Open menu"
@@ -69,6 +111,7 @@ const Header = () => {
           </button>
         </div>
       </div>
+
       {/* Right Drawer */}
       <aside
         role="dialog"
@@ -93,17 +136,14 @@ const Header = () => {
         {/* Drawer Links */}
         <nav className="p-4">
           <ul className="space-y-2">
-            {navItems.map((item, i) => (
+            {dynamicNav.map((item, i) => (
               <li
                 key={item.name}
-                className={`
-                  transform transition duration-300
-                  ${
-                    menuOpen
-                      ? "translate-x-0 opacity-100"
-                      : "translate-x-6 opacity-0"
-                  }
-                `}
+                className={`transform transition duration-300 ${
+                  menuOpen
+                    ? "translate-x-0 opacity-100"
+                    : "translate-x-6 opacity-0"
+                }`}
                 style={{ transitionDelay: `${80 + i * 40}ms` }}
               >
                 <Link

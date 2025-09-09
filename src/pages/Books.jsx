@@ -4,6 +4,7 @@ import RecommendationCard from "../components/RecommendationCard";
 import Loading from "../components/Loading";
 import { fetchPopularBooks, fetchBookRecommendations } from "../services/api";
 import "../index.css";
+import SectionHeader from "../components/SectionHeader";
 
 export default function Books() {
   const [popularBooks, setPopularBooks] = useState([]);
@@ -87,13 +88,9 @@ export default function Books() {
 
   return (
     <div className="Bookpage">
-      <BookSlider books={popularBooks.slice(0, 15)} />
-
       <div className="wrapper">
         <div className="p-6 max-w-5xl mx-auto">
-          <h1 className="text-3xl font-bold text-gray-900">
-            Search Book Recommendations
-          </h1>
+          <h1 className="text-3xl font-bold text-gray-900">Search Books</h1>
           <p className="text-sm mb-6 text-gray-600 mt-2">
             Type a book title and click Search to get recommended books from the
             backend.
@@ -155,7 +152,7 @@ export default function Books() {
             )}
 
             {!loading && recommendations.length === 0 && !error && (
-              <div className="text-center py-12">
+              <div className="text-center">
                 <h3 className="mt-2 text-sm font-medium text-gray-900">
                   No recommendations yet
                 </h3>
@@ -167,6 +164,8 @@ export default function Books() {
           </section>
         </div>
       </div>
+      <SectionHeader subtitle="Popular Books" />
+      <BookSlider books={popularBooks.slice(0, 15)} />
     </div>
   );
 }

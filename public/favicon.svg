@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#4f46e5"/>
+  
+  <!-- Book icon (left side) -->
+  <path d="M18 18h12v28H18z" fill="#ffffff" stroke="#ffffff" stroke-width="2" rx="2" ry="2"/>
+  <path d="M30 18h2v28h-2z" fill="#e0e7ff"/>
+  
+  <!-- Movie Play Button (right side) -->
+  <circle cx="44" cy="32" r="10" fill="#ffffff"/>
+  <polygon points="41,26 51,32 41,38" fill="#4f46e5"/>
+</svg>

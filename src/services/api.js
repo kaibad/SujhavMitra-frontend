@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE = import.meta.env.VITE_API_BASE;
+export const API_BASE = import.meta.env.VITE_API_BASE;
 
 // Fetch popular books
 export const fetchPopularBooks = async () => {
@@ -23,5 +23,17 @@ export const fetchBookRecommendations = async (title) => {
   } catch (err) {
     console.error("Error fetching book recommendations:", err);
     return { error: err.message || "Failed to fetch recommendations" };
+  }
+};
+
+export const fetchBookById = async (identifier) => {
+  try {
+    const res = await axios.get(`${API_BASE}/book/${identifier}`);
+    return res.data;
+  } catch (err) {
+    console.error("Error fetching book details:", err);
+    throw new Error(
+      err.response?.data?.message || "Failed to fetch book details"
+    );
   }
 };

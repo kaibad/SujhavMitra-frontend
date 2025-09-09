@@ -40,7 +40,7 @@ const About = () => {
         <h2 className="text-2xl font-semibold mt-8 mb-3">Tech Stack</h2>
         <ul className="list-disc list-inside space-y-2">
           <li>🧠 Flask + Python for the backend recommendation engine</li>
-          <li>⚡ React + TypeScript + Vite for a fast, modern frontend</li>
+          <li>⚡ React + Vite for a fast, modern frontend</li>
           <li>
             📊 Pandas, Numpy, and similarity matrices for smart suggestions
           </li>
