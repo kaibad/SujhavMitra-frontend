@@ -23,7 +23,7 @@ const Header = () => {
   const dynamicNav = [...navItems];
   if (user) {
     if (user.role_id === 1 || user.role_id === 2) {
-      dynamicNav.push({ name: "Dashboard", path: "/admin" });
+      dynamicNav.push({ name: "Dashboard", path: "/dashboard" });
     } else {
       dynamicNav.push({ name: "Wishlist", path: "/profile" });
     }
